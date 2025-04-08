@@ -1,5 +1,33 @@
 import pepita.*
 
+describe "Pepita"{
+
+    test "Con energia 100 falla al querer volar 91"{
+        //Testeo que la orden falla!
+        assert.throwsException({pepita.volar(91)})
+        //Testeo que no se modificó el estado.
+        assert.equals(100, pepita.energia())
+    }
+
+    test "Cuando vuela 10 con energia 100, su energia queda en 80"{
+        pepita.volar(10)
+        assert.equals(80, pepita.energia())
+    }
+
+    test "Cuando come alpiste, su energia de 100 pasa a 120"{
+        pepita.comer(alpiste)
+        assert.equals(120, pepita.energia())
+    }
+
+    test "Con energia 100 no puede vola 100"{
+        //assert.equals(esperado, resultante)
+        //assert.that(consulta) notThat
+        assert.notThat(pepon.puedeVolar(100))
+    }
+
+
+}
+
 describe "Pepita, Pepon y Roque"{
 
     test "La energia inicial de Pepon es 30"{

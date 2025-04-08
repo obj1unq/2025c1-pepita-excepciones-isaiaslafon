@@ -6,6 +6,9 @@ object pepita {
 	}
 	
 	method volar(distancia) {
+		if(energia < 10 + distancia){
+			self.error("No tengo suficiente energia, maestro!")
+		}
 		energia = energia - 10 - distancia
 	}
 		
@@ -30,6 +33,7 @@ object manzana {
 	
 	method madurez(_madurez) {
 		madurez = _madurez
+
 	}
 	
 	method madurar() {
@@ -39,7 +43,6 @@ object manzana {
 	method energiaQueAporta() {
 		return base * madurez
 	}
-	
 }
 
 object pepon {
@@ -52,16 +55,31 @@ object pepon {
 	method comer(comida) {
 		energia += energia + comida.energiaQueAporta() / 2
 	}
+
+	method energiaParaVolar(distancia){
+		return 20 + 2*distancia
+	}
+	
+	method puedeVolar(distancia){
+		return energia >= self.energiaParaVolar(distancia)
+	}
+
+	method validarVolar(distancia){
+		if(not self.puedeVolar(distancia)){
+			self.error("No tengo suficiente energia, capo!")
+		} //Si falla nunca ocurre la linea 71 y lanza una excepción que va subiendo por el sistema.
+	}
 		
 	method volar(distancia) {
-		energia = energia - 20 - 2*distancia
+		self.validarVolar(distancia)
+		energia -= self.energiaParaVolar(distancia)
 	}
 	
 }
 
 object roque {
 	var ave = pepita
-	var cenas = 0;
+	var cenas = 0
 	
 	method ave(_ave) {
 		ave = _ave
